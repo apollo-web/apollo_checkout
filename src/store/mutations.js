@@ -19,8 +19,18 @@ export const mutations = {
   },
 
   SET_WEEKLY_GOAL: (state, [type, value]) => {
-    state.currentPlan[type] = value
-    state.weeklyGoal[type].placeholder = value
+    state.currentPlan[type] = Number(value)
+    state.weeklyGoal[type].placeholder = Number(value)
+  },
+
+  SET_TOTAL_PRICE: (state, value) => {
+    state.currentPlan['totalPrice'] = value
+  },
+
+  SET_DEDICATE_PLAN: (state, [_duration, _totalPrice]) => {
+    state.currentPlan['duration'] = Number(_duration)
+    state.currentPlan['totalPrice'] = Number(_totalPrice.replace(/,\s?/g, ''))
+    console.log(state.currentPlan)
   },
 
 }

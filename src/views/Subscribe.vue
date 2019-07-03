@@ -32,7 +32,7 @@
           :key="index"
         )
           div.section__radiobox-box(
-            @click="setDedicatePlanRadioBtn(key)"
+            @click="setDedicatePlan_RadioBtn(key, [value.duration, currentPlan['totalPrice']])"
           )
             div.section__radiobox-left
               div.section__radiobox-left-left
@@ -41,10 +41,10 @@
                 p.section__radiobox-text {{ key }}
                 p.section__radiobox-renews Renews {{ value.renews }}
                 div.section__radiobox-ratebox(
-                  v-if="value.rate"
-                ) Save {{ value.rate }}&percnt;
+                  v-if="value.save"
+                ) Save {{ value.save }}&percnt;
             div.section__radiobox-right
-              p.section__radiobox-price {{ numberFormat(value.price, value.rate, value.m) }}
+              p.section__radiobox-price {{ numberFormat(value.originalPrice, value.save, value.duration) }}
 
       div.subscribe__box.section__border
         div.section__title
@@ -52,20 +52,30 @@
         div.section__summarybox
           div.section__summarybox-box
             p.section__summarybox-text.bottomtext
-              | {{ currentPlan['minutes per day'] }} minutes per day, {{ currentPlan['days per week'] }} days per week
-            p.section__summarybox-text
-              | Duration: {{ planMonth.m }} month
+              b {{ currentPlan['minutes per day'] }}
+              | &nbsp;minutes per day,&nbsp;
+              b {{ currentPlan['days per week'] }}
+              | &nbsp;days per week
+            p.section__summarybox-text Duration:
+              b &nbsp;{{ planMonth.duration }}&nbsp;
+              span(
+                v-if="currentPlan.duration === 1"
+              ) month
+              span(
+                v-else-if="currentPlan.duration > 1"
+              ) months
+
             p.section__summarybox-price Original Price
               span.section__summarybox-priceRight
-                | ₩ {{ originalPriceFormat(planMonth.price) }}
+                | ₩ {{ originalPriceFormat(planMonth.originalPrice) }}
             p.section__summarybox-price(
-              v-if="planMonth.rate"
-            ) {{ planMonth.m }} month plan: You save {{ planMonth.rate }}&percnt;
+              v-if="planMonth.save"
+            ) {{ planMonth.duration }} month plan: You save {{ planMonth.save }}&percnt;
               span.section__summarybox-priceRight
-                | - ₩ {{ savedPrice(planMonth.price, planMonth.rate, planMonth.m) }}
+                | - ₩ {{ savedPrice(planMonth.originalPrice, planMonth.save, planMonth.duration) }}
             p.section__summarybox-total Total Price
               span.section__summarybox-totalRight
-                | ₩ {{ totalPrice(planMonth.price, planMonth.rate, planMonth.m)  }}
+                | ₩ {{ totalPrice(planMonth.originalPrice, planMonth.save, planMonth.duration)  }}
 
     BottomButton(
       @submit.prevent="submitPlan"
@@ -129,16 +139,17 @@ export default {
       'SET_BOTTOM_SHEET',
       'SET_RADIO_BTN',
       'SET_WEEKLY_GOAL',
+      'SET_TOTAL_PRICE',
+      'SET_DEDICATE_PLAN',
     ]),
 
     setCurrentPlan (type, value) {
       this.SET_WEEKLY_GOAL([type, value])
       this.SET_BOTTOM_SHEET(false)
-      console.log(this.currentPlan[type])
     },
 
-    numberFormat (p, r, m) {
-      let saved = (p - ((p * r) / 100)) / m
+    numberFormat (p, s, m) {
+      let saved = (p - ((p * s) / 100)) / m
       return saved.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
 
@@ -146,14 +157,16 @@ export default {
       return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
 
-    savedPrice (p, r, m) {
-      let saved = (p - ((p * r) / 100)) / m
+    savedPrice (p, s, m) {
+      let saved = (p - ((p * s) / 100)) / m
       return (p - ((saved) * m)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
 
-    totalPrice (p, r, m) {
-      let saved = (p - ((p * r) / 100)) / m
-      return ((saved) * m).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    totalPrice (p, s, m) {
+      let saved = (p - ((p * s) / 100)) / m
+      let _totalPrice = ((saved) * m).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      this.SET_TOTAL_PRICE(_totalPrice)
+      return _totalPrice
     },
 
     toggleSheet(bool, title) {
@@ -163,8 +176,9 @@ export default {
       return this.bottomSheetTitle = capitalizedTitle
     },
 
-    setDedicatePlanRadioBtn(key) {
+    setDedicatePlan_RadioBtn(key, [_duration, _totalPrice]) {
       this.SET_RADIO_BTN(key)
+      this.SET_DEDICATE_PLAN([_duration, _totalPrice])
     },
   },
 
@@ -347,6 +361,10 @@ export default {
             &.bottomtext {
               margin-top: -#{$grid2x};
               margin-bottom: -#{$grid3x};
+            }
+
+            span {
+              @include font-size(14px);
             }
           }
 
