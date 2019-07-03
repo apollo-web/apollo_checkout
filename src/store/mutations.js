@@ -11,14 +11,14 @@ export const mutations = {
   },
 
   SET_RADIO_BTN: (state, key) => {
-    let items = Object.entries(state.plans)
+    let items = Object.entries(state.dedicatePlan)
     for (let i = 0; i < items.length; i++) {
       items[i][1].selected = 'radio_button_unchecked'
     }
-    return state.plans[key].selected = 'radio_button_checked'
+    return state.dedicatePlan[key].selected = 'radio_button_checked'
   },
 
-  SET_CURRENT_PLAN: (state, [type, value]) => {
+  SET_WEEKLY_GOAL: (state, [type, value]) => {
     state.currentPlan[type] = value
     state.weeklyGoal[type].placeholder = value
   },

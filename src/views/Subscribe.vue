@@ -28,11 +28,11 @@
         div.section__title
           p.subscribe__box-title How much can you dedicate?
         div.section__radiobox(
-          v-for="(value, key, index) in plans"
+          v-for="(value, key, index) in dedicatePlan"
           :key="index"
         )
           div.section__radiobox-box(
-            @click="setRadioBtn(key)"
+            @click="setDedicatePlanRadioBtn(key)"
           )
             div.section__radiobox-left
               div.section__radiobox-left-left
@@ -52,7 +52,7 @@
         div.section__summarybox
           div.section__summarybox-box
             p.section__summarybox-text.bottomtext
-              | 30 minutes per day, 5 days per week
+              | {{ currentPlan['minutes per day'] }} minutes per day, {{ currentPlan['days per week'] }} days per week
             p.section__summarybox-text
               | Duration: {{ planMonth.m }} month
             p.section__summarybox-price Original Price
@@ -113,13 +113,13 @@ export default {
   computed: {
     ...mapState([
       'weeklyGoal',
-      'plans',
+      'dedicatePlan',
       'currentPlan',
       'bottomSheet',
     ]),
 
     planMonth () {
-      let getPlanMonth = _.find(this.plans, {'selected': 'radio_button_checked'})
+      let getPlanMonth = _.find(this.dedicatePlan, {'selected': 'radio_button_checked'})
       return getPlanMonth
     },
   },
@@ -128,11 +128,11 @@ export default {
     ...mapMutations([
       'SET_BOTTOM_SHEET',
       'SET_RADIO_BTN',
-      'SET_CURRENT_PLAN',
+      'SET_WEEKLY_GOAL',
     ]),
 
     setCurrentPlan (type, value) {
-      this.SET_CURRENT_PLAN([type, value])
+      this.SET_WEEKLY_GOAL([type, value])
       this.SET_BOTTOM_SHEET(false)
       console.log(this.currentPlan[type])
     },
@@ -163,7 +163,7 @@ export default {
       return this.bottomSheetTitle = capitalizedTitle
     },
 
-    setRadioBtn(key) {
+    setDedicatePlanRadioBtn(key) {
       this.SET_RADIO_BTN(key)
     },
   },

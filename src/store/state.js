@@ -34,15 +34,15 @@ export const state = {
   },
 
   currentPlan: {
-    'minutes per day': String,
-    'days per week': String,
-    'duration': String,
-    'originalPrice': String,
-    'saved': String,
-    'totalPrice': String,
+    'minutes per day': 15,
+    'days per week': 1,
+    'duration': null,
+    'originalPrice': null,
+    'saved': null,
+    'totalPrice': null,
   },
 
-  plans: {
+  dedicatePlan: {
     'Month': {
       'selected': 'radio_button_checked',
       'm': 1,
