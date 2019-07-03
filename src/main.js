@@ -12,6 +12,9 @@ Vue.use(VueLodash)
 import Toasted from 'vue-toasted'
 Vue.use(Toasted)
 
+import VueMask from 'v-mask'
+Vue.use(VueMask)
+
 import VueProgressBar from 'vue-progressbar'
 Vue.use(VueProgressBar, {
   color: 'rgb(255, 255, 255)',

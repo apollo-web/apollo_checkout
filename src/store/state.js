@@ -71,19 +71,24 @@ export const state = {
     },
   },
 
-  paymentInfo: {
-    'Card Number': {
-      value: String,
-      maxlength: 16,
+  paymentInfo: [{
+      placeholder: 'Card Number',
+      value: '',
+      maxlength: 19,
+      mask: '#### #### #### ####',
     },
-    'MM/YY': {
-      value: String,
-      maxlength: 4,
+    {
+      placeholder: 'MM/YY',
+      value: '',
+      maxlength: 5,
+      mask: '##/##',
     },
-    'CVC Number': {
-      value: String,
+    {
+      placeholder: 'CVC Number',
+      value: '',
       maxlength: 3,
+      mask: '###',
     },
-  },
+  ],
 
 }

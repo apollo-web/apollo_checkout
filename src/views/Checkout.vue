@@ -20,18 +20,26 @@
         @submit.prevent="sendPaymentInfo"
       )
         div.checkout__form-box(
-          v-for="(value, key, index) in paymentInfo"
+          v-for="(info, key, index) in paymentInfo"
         )
           input.checkout__form-input(
-            :placeholder="key.value"
-            :maxlength="key.maxlength"
+            type="tel"
+            v-mask="info.mask"
+            required="required"
+            v-model.trim="info.value"
+            :maxlength="info.maxlength"
+            :placeholder="info.placeholder"
           )
 
     BottomButton
+      div.bottomButton__wrapper(
+        @click="sendPaymentInfo"
+      )
+        p.bottomButton__label Checkout
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import Header from '@/components/Header.vue'
 import BottomButton from '@/components/BottomButton.vue'
 
@@ -40,8 +48,58 @@ export default {
 
   computed: {
     ...mapState([
-      'paymentInfo',
     ]),
+
+    paymentInfo: {
+      get () {
+        return this.$store.state.paymentInfo
+      },
+      set (value) {
+        this.$store.commit('UPDATE_FORM_DETAILS', value)
+      }
+    }
+  },
+
+  methods: {
+    ...mapMutations([
+      'UPDATE_FORM_DETAILS',
+    ]),
+
+    sendPaymentInfo() {
+      this.$Progress.start()
+
+      if (! this.paymentInfo[0].value) {
+        this.$toasted.show('Please enter your card number', {
+          theme: 'primary',
+          position: 'bottom-center',
+          duration: 2500,
+        })
+        this.$Progress.finish()
+      }
+      else if (! this.paymentInfo[1].value) {
+        this.$toasted.show('Please write the rigth year and month', {
+          theme: 'primary',
+          position: 'bottom-center',
+          duration: 2500,
+        })
+        this.$Progress.finish()
+      }
+      else if (! this.paymentInfo[2].value) {
+        this.$toasted.show('Please enter your Card Validation Code', {
+          theme: 'primary',
+          position: 'bottom-center',
+          duration: 2500,
+        })
+        this.$Progress.finish()
+      }
+      else {
+        this.$toasted.show('Your request is being processed...', {
+          theme: 'primary',
+          position: 'bottom-center',
+          duration: 2500,
+        })
+      }
+    },
   },
 
   components: {
@@ -79,10 +137,9 @@ export default {
           border: none;
           color: #fff;
           height: $grid12x;
-          // background-color: $white10;
           background-color: transparent;
           border-bottom: 1px solid $white38;
-          @include transition(all 0.25s ease);
+          @include transition(border-bottom 0.25s ease);
 
           &:focus {
             border-bottom: 1px solid #fff;

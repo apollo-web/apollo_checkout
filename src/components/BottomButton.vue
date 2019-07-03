@@ -3,9 +3,13 @@
     :class="thisClass"
   )
     div.bottomButton__wrapper(
+      v-if="['subscribe'].includes($route.name)"
       @click="goNext"
     )
       p.bottomButton__label Checkout
+    slot.bottomButton__wrapper(
+      v-if="['checkout'].includes($route.name)"
+    )
 </template>
 
 <script>
