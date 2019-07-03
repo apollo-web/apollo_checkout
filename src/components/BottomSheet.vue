@@ -18,7 +18,7 @@
               )
                 i.material-icons close
               div.bottomsheet__header-title
-                div.bottomsheet__header-title-text {{ title }}
+                div.bottomsheet__header-title-text {{ bottomSheetTitle }}
             slot
 </template>
 
@@ -27,7 +27,7 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
   props: {
-    title: String,
+    bottomSheetTitle: String,
   },
 
   data: _ => ({
@@ -98,11 +98,8 @@ export default {
   }
 
   .bottomsheet__sheet-wrapper {
-    height: 100%;
-
     .bottomsheet__sheet-box {
       z-index: 27;
-      height: 100%;
       max-width: 100%;
       position: relative;
 
@@ -110,11 +107,10 @@ export default {
         bottom: 0;
         z-index: 28;
         width: 100vw;
-        height: 100%;
         padding: $grid4x 0;
         position: absolute;
         background-color: #fff;
-        padding-bottom: $grid48x;
+        margin-bottom: -#{$grid48x};
         border-radius: $grid4x $grid4x 0 0;
         animation: 0.35s slide_up ease-in-out;
 

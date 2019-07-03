@@ -9,31 +9,37 @@ export const state = {
   radioChecked: false,
 
   weeklyGoal: {
-    'mins per day': [
-      '15 minutes',
-      '30 minutes',
-      '45 minutes',
-      '60 minutes',
-      '120 minutes',
-    ],
-    'days per week': [
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-    ],
+    'minutes per day': {
+      placeholder: '15',
+      values: [
+        '15',
+        '30',
+        '45',
+        '60',
+        '120',
+      ]
+    },
+    'days per week': {
+      placeholder: '1',
+      values: [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+      ]
+    },
   },
 
   currentPlan: {
-    'minutes': String,
-    'days': String,
+    'minutes per day': String,
+    'days per week': String,
     'duration': String,
-    'oPrice': String,
+    'originalPrice': String,
     'saved': String,
-    'tPrice': String,
+    'totalPrice': String,
   },
 
   plans: {

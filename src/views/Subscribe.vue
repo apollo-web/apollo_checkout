@@ -15,11 +15,12 @@
           :key="key"
         )
           div.section__combobox-sheet(
-            @click="toggleSheet(true)"
-            title="value"
+            @click="toggleSheet(true, key)"
           )
             div.section__combobox-box
-              p.section__combobox-text {{ key }}
+              p.section__combobox-text
+                b {{ value.placeholder }}
+                | &nbsp;{{ key }}
             div.section__combobox-icon
               i.material-icons expand_more
 
@@ -55,15 +56,20 @@
             p.section__summarybox-text
               | Duration: {{ planMonth.m }} month
             p.section__summarybox-price Original Price
-              span.section__summarybox-priceRight ₩ {{ opriceFormat(planMonth.price) }}
+              span.section__summarybox-priceRight
+                | ₩ {{ originalPriceFormat(planMonth.price) }}
             p.section__summarybox-price(
               v-if="planMonth.rate"
             ) {{ planMonth.m }} month plan: You save {{ planMonth.rate }}&percnt;
-              span.section__summarybox-priceRight - ₩ {{ savedPrice(planMonth.price, planMonth.rate, planMonth.m) }}
+              span.section__summarybox-priceRight
+                | - ₩ {{ savedPrice(planMonth.price, planMonth.rate, planMonth.m) }}
             p.section__summarybox-total Total Price
-              span.section__summarybox-totalRight ₩ {{ totalPrice(planMonth.price, planMonth.rate, planMonth.m)  }}
+              span.section__summarybox-totalRight
+                | ₩ {{ totalPrice(planMonth.price, planMonth.rate, planMonth.m)  }}
 
-    BottomButton
+    BottomButton(
+      @submit.prevent="submitPlan"
+    )
 
     div.subscribe__section.bottom
       div.bottom__condition
@@ -74,7 +80,20 @@
 
     BottomSheet.bottomsheet(
       v-if="bottomSheet"
+      :bottomSheetTitle="bottomSheetTitle"
     )
+      div.bottomsheet__list(
+        v-for="(value, key, index) in weeklyGoal[setBottomSheetList].values"
+        :key="key"
+      )
+        div.bottomsheet__text(
+          v-if="setBottomSheetList == 'minutes per day'"
+          @click="setCurrentPlan('minutes per day', value)"
+        ) {{ value }} minutes
+        div.bottomsheet__text(
+          v-if="setBottomSheetList == 'days per week'"
+          @click="setCurrentPlan('days per week', value)"
+        ) {{ value }} days
 </template>
 
 <script>
@@ -86,14 +105,20 @@ import BottomSheet from '@/components/BottomSheet'
 export default {
   name: 'subscribe',
 
+  data: _ => ({
+    bottomSheetTitle: String,
+    setBottomSheetList: String,
+  }),
+
   computed: {
     ...mapState([
       'weeklyGoal',
       'plans',
+      'currentPlan',
       'bottomSheet',
     ]),
 
-    planMonth() {
+    planMonth () {
       let getPlanMonth = _.find(this.plans, {'selected': 'radio_button_checked'})
       return getPlanMonth
     },
@@ -103,14 +128,21 @@ export default {
     ...mapMutations([
       'SET_BOTTOM_SHEET',
       'SET_RADIO_BTN',
+      'SET_CURRENT_PLAN',
     ]),
+
+    setCurrentPlan (type, value) {
+      this.SET_CURRENT_PLAN([type, value])
+      this.SET_BOTTOM_SHEET(false)
+      console.log(this.currentPlan[type])
+    },
 
     numberFormat (p, r, m) {
       let saved = (p - ((p * r) / 100)) / m
       return saved.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
 
-    opriceFormat (n) {
+    originalPriceFormat (n) {
       return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
 
@@ -124,8 +156,11 @@ export default {
       return ((saved) * m).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
 
-    toggleSheet(bool) {
+    toggleSheet(bool, title) {
+      let capitalizedTitle = title[0].toUpperCase() + title.substring(1)
+      this.setBottomSheetList = title
       this.SET_BOTTOM_SHEET(bool)
+      return this.bottomSheetTitle = capitalizedTitle
     },
 
     setRadioBtn(key) {
@@ -144,6 +179,18 @@ export default {
 
 <style lang="scss" scoped>
 #subscribe {
+  .bottomsheet {
+    .bottomsheet__list {
+      cursor: pointer;
+      height: $grid12x;
+
+      .bottomsheet__text {
+        color: $black78 !important;
+        @include line-height($grid7x);
+      }
+    }
+  }
+
   .subscribe__section {
     padding: $header $grid4x 0;
 

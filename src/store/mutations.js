@@ -18,4 +18,9 @@ export const mutations = {
     return state.plans[key].selected = 'radio_button_checked'
   },
 
+  SET_CURRENT_PLAN: (state, [type, value]) => {
+    state.currentPlan[type] = value
+    state.weeklyGoal[type].placeholder = value
+  },
+
 }
