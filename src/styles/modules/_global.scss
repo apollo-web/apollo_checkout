@@ -148,3 +148,19 @@ textarea:focus {
   width: 100vw;
   position: fixed;
 }
+
+::-webkit-input-placeholder {
+  color: $white54;
+}
+
+::-moz-placeholder {
+  color: $white54;
+}
+
+::-ms-placeholder {
+  color: $white54;
+}
+
+::placeholder {
+  color: $white54;
+}

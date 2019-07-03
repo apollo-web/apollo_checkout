@@ -26,20 +26,29 @@ export default {
 
     goNext() {
       this.$Progress.start()
+
       this.$toasted.show('Your request is being processed...', {
         theme: 'primary',
         position: 'bottom-center',
         duration: 2500,
       })
 
-      setTimeout(() => {
-        if(this.$route.name == 'subscribe') {
-          this.$router.push({
-            name: 'checkout',
-          })
-        }
+      // subscribe
+      if (this.$route.name == 'subscribe') {
+        setTimeout(() => {
+          if(this.$route.name == 'subscribe') {
+            this.$router.push({
+              name: 'checkout',
+            })
+          }
+          this.$Progress.finish()
+        }, 250)
+      }
+
+      // checkout
+      else if (this.$route.name == 'checkout') {
         this.$Progress.finish()
-      }, 250)
+      }
     },
   },
 
@@ -66,9 +75,13 @@ export default {
     width: calc(100% - #{$grid4x}) !important;
     @include bottomBtnGrad();
 
-    // iPhone X safearea
-    @supports (padding-bottom: env(safe-area-inset-bottom)) {
-      padding-bottom: calc(env(safe-area-inset-bottom));
+    .bottomButton__wrapper {
+      // iPhone X safearea
+      @supports (padding-bottom: env(safe-area-inset-bottom)) {
+        padding-bottom: calc(
+          env(safe-area-inset-bottom + #{$grid24x})
+        ) !important;
+      }
     }
   }
 
