@@ -1,5 +1,7 @@
 <template lang="pug">
-  div#bottomButton(:class="thisClass")
+  div#bottomButton(
+    :class="thisClass"
+  )
     div.bottomButton__wrapper(
       @click="goNext"
     )
@@ -14,13 +16,31 @@ export default {
   }),
 
   methods: {
+
+    start: _ => this.$Progress.start(),
+    set: num => this.$Progress.set(num),
+    increase: num => this.$Progress.increase(num),
+    decrease: num => this.$Progress.decrease(num),
+    finish: _ => this.$Progress.finish(),
+    fail: _ => this.$Progress.fail(),
+
     goNext() {
-      if(this.$route.name == 'subscribe') {
-        this.$router.push({
-          name: 'checkout',
-        })
-      }
-    }
+      this.$Progress.start()
+      this.$toasted.show('Your request is being processed...', {
+        theme: 'primary',
+        position: 'bottom-center',
+        duration: 2500,
+      })
+
+      setTimeout(() => {
+        if(this.$route.name == 'subscribe') {
+          this.$router.push({
+            name: 'checkout',
+          })
+        }
+        this.$Progress.finish()
+      }, 250)
+    },
   },
 
   mounted () {

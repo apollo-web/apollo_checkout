@@ -9,6 +9,16 @@ Vue.config.productionTip = false
 import VueLodash from 'vue-lodash'
 Vue.use(VueLodash)
 
+import Toasted from 'vue-toasted'
+Vue.use(Toasted)
+
+import VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar, {
+  color: 'rgb(255, 255, 255)',
+  failedColor: 'rgb(255, 255, 255)',
+  height: '4px',
+})
+
 new Vue({
   router,
   store,

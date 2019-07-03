@@ -3,6 +3,7 @@
     :class="{noscroll: bottomSheet}"
   )
     router-view
+    vue-progress-bar
 </template>
 
 <script>

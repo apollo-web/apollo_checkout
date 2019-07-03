@@ -6,6 +6,10 @@
 
     div.checkout__section
 
+      div.checkout__box.section__border
+        div.section__title
+          p.checkout__box-title Payment Info
+
     BottomButton
 </template>
 

@@ -1,3 +1,19 @@
+@function calculateRem($size) {
+  $remSize: $size / $grid4x;
+  @return $remSize * 1rem;
+}
+
+@mixin line-height($size) {
+  line-height: $size * 1.6;
+  line-height: calculateRem($size) * 1.6;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+  @include line-height($size);
+}
+
 @mixin box-shadow ($val:$grid, $val2:$grid2x, $color:$black08) {
   -webkit-box-shadow: 0 $val $val2 $color;
   -ms-box-shadow: 0 $val $val2 $color;
@@ -65,4 +81,25 @@
       rgba(132, 77, 255, 1) 12%,
       rgba(132, 77, 255, 1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#844dff', endColorstr='#844dff', GradientType=0);
+}
+
+/* ==============================
+  toast
+============================== */
+.toasted.primary.default {
+  width: auto;
+  color: #fff;
+  margin: 0 auto;
+  font-weight: 400;
+  text-align: center;
+  background: $black78;
+  margin-bottom: $grid12x;
+  padding: $grid3x $grid4x;
+  @include font-size($grid3x);
+  @include border-radius($grid16x !important);
+  @include box-shadow($grid, $grid2x, $black16);
+}
+
+.__cov-progress {
+  top: $header !important;
 }
