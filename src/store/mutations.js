@@ -33,6 +33,11 @@ export const mutations = {
     console.log(state.currentPlan)
   },
 
+  SET_PROMOTION_CODE: (state, value) => {
+    state.promotionCode = value
+    state.currentPlan['promotionCode'] = value
+  },
+
   UPDATE_FORM_DETAILS: (state, [value, key]) => {
     state.paymentInfo[key].value = Number(value.replace(/,\s?/g, ''))
     console.log(state.paymentInfo[key].value)

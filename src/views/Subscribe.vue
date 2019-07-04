@@ -82,6 +82,16 @@
               span.section__summarybox-totalRight
                 | ₩ {{ totalPrice(planMonth.originalPrice, planMonth.save, planMonth.duration)  }}
 
+      div.subscribe__box
+        div.section__title
+          p.subscribe__box-title.summaryTitle Promotion Code
+        form.checkout__form
+          div.checkout__form-box
+            input.checkout__form-input(
+              v-model="_promotionCode"
+              placeholder="Promotion Code (Optional)"
+            )
+
     BottomButton(
       btnLabel="Next"
     )
@@ -133,6 +143,15 @@ export default {
       'bottomSheet',
     ]),
 
+    _promotionCode: {
+      get () {
+        return this.$store.state.promotionCode
+      },
+      set (value) {
+        this.$store.commit('SET_PROMOTION_CODE', value)
+      },
+    },
+
     planMonth () {
       let getPlanMonth = _.find(this.dedicatePlan, {'selected': 'radio_button_checked'})
       return getPlanMonth
@@ -149,7 +168,7 @@ export default {
     ]),
 
     closeBtn () {
-      window.open("about:blank","_self").close()
+      window.open('about:blank', '_self').close()
       window.close()
       window.postMessage('close')
     },

@@ -8,6 +8,8 @@ export const state = {
 
   radioChecked: false,
 
+  promotionCode: '',
+
   weeklyGoal: {
     'minutes per day': {
       placeholder: '15',
@@ -38,6 +40,7 @@ export const state = {
     'days per week': 1,
     'duration': 1,
     'totalPrice': globalVar.monthlyPrice,
+    'promotionCode': '',
   },
 
   dedicatePlan: {
@@ -72,21 +75,21 @@ export const state = {
   },
 
   paymentInfo: [{
-      placeholder: '16 Digits Card Number',
+      placeholder: 'Card Number',
       value: '',
       maxlength: 19,
       mask: '#### #### #### ####',
       format: 'formatCardNumber',
     },
     {
-      placeholder: 'Expiry Date, MM/YY',
+      placeholder: 'Expiry Date',
       value: '',
       maxlength: 5,
       mask: '##/##',
       format: 'formatCardExpiry',
     },
     {
-      placeholder: '3 or 4 Digits CVC Number',
+      placeholder: 'CVC Number',
       value: '',
       maxlength: 4,
       mask: '####',
