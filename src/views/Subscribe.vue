@@ -1,8 +1,13 @@
 <template lang="pug">
   div#subscribe
 
-    Header(headerTitle="Subscribe")
-      div.header__left(slot="header__left")
+    Header(
+      headerTitle="Subscribe"
+    )
+      div.header__left(
+        slot="header__left"
+        @click="closeBtn"
+      )
         i.material-icons close
 
     div.subscribe__section
@@ -142,6 +147,12 @@ export default {
       'SET_TOTAL_PRICE',
       'SET_DEDICATE_PLAN',
     ]),
+
+    closeBtn () {
+      window.open("about:blank","_self").close()
+      window.close()
+      window.postMessage('close')
+    },
 
     setCurrentPlan (type, value) {
       this.SET_WEEKLY_GOAL([type, value])

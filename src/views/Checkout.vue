@@ -74,7 +74,7 @@ export default {
         this.$toasted.show('Please enter your card number', {
           theme: 'primary',
           position: 'bottom-center',
-          duration: 250000,
+          duration: 2500,
         })
         this.$Progress.finish()
       }

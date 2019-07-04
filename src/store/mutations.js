@@ -33,8 +33,9 @@ export const mutations = {
     console.log(state.currentPlan)
   },
 
-  UPDATE_FORM_DETAILS: (state, value) => {
-    state.paymentInfo.value = Number(value.replace(/,\s?/g, ''))
+  UPDATE_FORM_DETAILS: (state, [value, key]) => {
+    state.paymentInfo[key].value = Number(value.replace(/,\s?/g, ''))
+    console.log(state.paymentInfo[key].value)
   },
 
 }
