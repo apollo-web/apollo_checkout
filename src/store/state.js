@@ -74,27 +74,29 @@ export const state = {
     },
   },
 
-  paymentInfo: [{
-      placeholder: 'Card Number',
-      value: '',
-      maxlength: 19,
-      mask: '#### #### #### ####',
-      format: 'formatCardNumber',
-    },
-    {
-      placeholder: 'Expiry Date',
-      value: '',
-      maxlength: 5,
-      mask: '##/##',
-      format: 'formatCardExpiry',
-    },
-    {
-      placeholder: 'CVC Number',
-      value: '',
-      maxlength: 4,
-      mask: '####',
-      format: 'formatCardCVC',
-    },
-  ],
+  cardNumber: {
+    maxlength: '',
+    placeholder: 'Card Number',
+    mask: '#### #### #### ####',
+    value: '',
+  },
+  expiryDate: {
+    maxlength: '',
+    placeholder: 'Expiry Date',
+    mask: '##/##',
+    value: '',
+  },
+  cvcNumber: {
+    maxlength: '',
+    placeholder: 'CVC Number',
+    mask: '####',
+    value: '',
+  },
+
+  creditCardInfo: {
+    cardNumber: '',
+    expiryDate: '',
+    cvcNumber: '',
+  },
 
 }

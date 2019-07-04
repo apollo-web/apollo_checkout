@@ -19,16 +19,32 @@
         name="paymentInfo"
         @submit.prevent="sendPaymentInfo"
       )
-        div.checkout__form-box(
-          v-for="(info, key, index) in paymentInfo"
-        )
+        div.checkout__form-box
           input.checkout__form-input(
             type="tel"
-            v-mask="info.mask"
             required="required"
-            v-model.trim="info.value"
-            :maxlength="info.maxlength"
-            :placeholder="info.placeholder"
+            v-mask="cardNumber.mask"
+            v-model.trim="cardNumber.value"
+            :maxlength="cardNumber.maxlength"
+            :placeholder="cardNumber.placeholder"
+          )
+        div.checkout__form-box
+          input.checkout__form-input(
+            type="tel"
+            required="required"
+            v-mask="expiryDate.mask"
+            v-model.trim="expiryDate.value"
+            :maxlength="expiryDate.maxlength"
+            :placeholder="expiryDate.placeholder"
+          )
+        div.checkout__form-box
+          input.checkout__form-input(
+            type="tel"
+            required="required"
+            v-mask="cvcNumber.mask"
+            v-model.trim="cvcNumber.value"
+            :maxlength="cvcNumber.maxlength"
+            :placeholder="cvcNumber.placeholder"
           )
 
     BottomButton(
@@ -49,24 +65,35 @@ export default {
   name: 'checkout',
 
   computed: {
-    ...mapState([
-    ]),
-
-    paymentInfo: {
+    cardNumber: {
       get () {
-        return this.$store.state.paymentInfo
+        return this.$store.state.cardNumber
       },
       set (value) {
-        this.$store.commit('UPDATE_FORM_DETAILS', value)
+        this.$store.commit('UPDATE_CARD_NUMBER', value)
       }
-    }
+    },
+
+    expiryDate: {
+      get () {
+        return this.$store.state.expiryDate
+      },
+      set (value) {
+        this.$store.commit('UPDATE_EXPIRY_DATE', value)
+      }
+    },
+
+    cvcNumber: {
+      get () {
+        return this.$store.state.cvcNumber
+      },
+      set (value) {
+        this.$store.commit('UPDATE_CVC_NUMBER', value)
+      }
+    },
   },
 
   methods: {
-    ...mapMutations([
-      'UPDATE_FORM_DETAILS',
-    ]),
-
     sendPaymentInfo() {
       this.$Progress.start()
 

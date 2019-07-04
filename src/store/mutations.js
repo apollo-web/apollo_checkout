@@ -30,7 +30,6 @@ export const mutations = {
   SET_DEDICATE_PLAN: (state, [_duration, _totalPrice]) => {
     state.currentPlan['duration'] = Number(_duration)
     state.currentPlan['totalPrice'] = Number(_totalPrice.replace(/,\s?/g, ''))
-    console.log(state.currentPlan)
   },
 
   SET_PROMOTION_CODE: (state, value) => {
@@ -41,6 +40,24 @@ export const mutations = {
   UPDATE_FORM_DETAILS: (state, [value, key]) => {
     state.paymentInfo[key].value = Number(value.replace(/,\s?/g, ''))
     console.log(state.paymentInfo[key].value)
+  },
+
+  UPDATE_CARD_NUMBER: (state, value) => {
+    state.cardNumber.value = value
+    state.creditCardInfo[cardNumber] = value
+    console.log(state.cardNumber.value)
+  },
+
+  UPDATE_EXPIRY_DATE: (state, value) => {
+    state.expiryDate.value = value
+    state.creditCardInfo[expiryDate] = value
+    console.log(state.expiryDate.value)
+  },
+
+  UPDATE_CVC_NUMBER: (state, value) => {
+    state.cvcNumber.value = value
+    state.creditCardInfo[cvcNumber] = value
+    console.log(state.cvcNumber.value)
   },
 
 }

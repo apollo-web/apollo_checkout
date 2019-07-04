@@ -88,7 +88,7 @@
         form.checkout__form
           div.checkout__form-box
             input.checkout__form-input(
-              v-model="_promotionCode"
+              v-model.trim="_promotionCode"
               placeholder="Promotion Code (Optional)"
             )
 
