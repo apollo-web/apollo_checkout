@@ -31,7 +31,9 @@
             :placeholder="info.placeholder"
           )
 
-    BottomButton
+    BottomButton(
+      btnLabel="Checkout"
+    )
       div.bottomButton__wrapper(
         @click="sendPaymentInfo"
       )
@@ -129,16 +131,25 @@ export default {
     }
 
     .checkout__form {
+      margin: 0 auto;
+      display: inline-block;
+      width: calc(100vw - #{$grid8x});
+
       .checkout__form-box {
+        width: 100%;
         height: $grid20x;
 
         .checkout__form-input {
-          width: 100%;
+          padding: 0;
           border: none;
           color: #fff;
+          margin: 0 auto;
           height: $grid12x;
+          display: inline-block;
+          width: calc(100% - 2px);
           background-color: transparent;
           border-bottom: 1px solid $white38;
+          @include border-radius(0);
           @include transition(border-bottom 0.25s ease);
 
           &:focus {

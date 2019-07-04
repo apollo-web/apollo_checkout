@@ -6,7 +6,7 @@
       v-if="['subscribe'].includes($route.name)"
       @click="goNext"
     )
-      p.bottomButton__label Checkout
+      p.bottomButton__label {{ btnLabel }}
     slot.bottomButton__wrapper(
       v-if="['checkout'].includes($route.name)"
     )
@@ -14,31 +14,19 @@
 
 <script>
 export default {
-
   data: _ => ({
     thisClass: String,
   }),
 
+  props: {
+    btnLabel: String,
+  },
+
   methods: {
-
-    start: _ => this.$Progress.start(),
-    set: num => this.$Progress.set(num),
-    increase: num => this.$Progress.increase(num),
-    decrease: num => this.$Progress.decrease(num),
-    finish: _ => this.$Progress.finish(),
-    fail: _ => this.$Progress.fail(),
-
     goNext() {
-      this.$Progress.start()
-
-      this.$toasted.show('Your request is being processed...', {
-        theme: 'primary',
-        position: 'bottom-center',
-        duration: 2500,
-      })
-
       // subscribe
       if (this.$route.name == 'subscribe') {
+        this.$Progress.start(),
         setTimeout(() => {
           if(this.$route.name == 'subscribe') {
             this.$router.push({
@@ -46,12 +34,7 @@ export default {
             })
           }
           this.$Progress.finish()
-        }, 250)
-      }
-
-      // checkout
-      else if (this.$route.name == 'checkout') {
-        this.$Progress.finish()
+        }, 100)
       }
     },
   },
@@ -79,13 +62,9 @@ export default {
     width: calc(100% - #{$grid4x}) !important;
     @include bottomBtnGrad();
 
-    .bottomButton__wrapper {
-      // iPhone X safearea
-      @supports (padding-bottom: env(safe-area-inset-bottom)) {
-        padding-bottom: calc(
-          env(safe-area-inset-bottom + #{$grid24x})
-        ) !important;
-      }
+    // iPhone X safearea
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      padding-bottom: calc(env(safe-area-inset-bottom) + #{$grid4x}) !important;
     }
   }
 

@@ -77,7 +77,9 @@
               span.section__summarybox-totalRight
                 | ₩ {{ totalPrice(planMonth.originalPrice, planMonth.save, planMonth.duration)  }}
 
-    BottomButton
+    BottomButton(
+      btnLabel="Next"
+    )
 
     div.subscribe__section.bottom
       div.bottom__condition
