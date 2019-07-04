@@ -19,7 +19,7 @@
           )
             div.section__combobox-box
               p.section__combobox-text
-                b {{ value.placeholder }}
+                span.bold {{ value.placeholder }}
                 | &nbsp;{{ key }}
             div.section__combobox-icon
               i.material-icons expand_more
@@ -52,12 +52,12 @@
         div.section__summarybox
           div.section__summarybox-box
             p.section__summarybox-text.bottomtext
-              b {{ currentPlan['minutes per day'] }}
+              span.bold {{ currentPlan['minutes per day'] }}
               | &nbsp;minutes per day,&nbsp;
-              b {{ currentPlan['days per week'] }}
+              span.bold {{ currentPlan['days per week'] }}
               | &nbsp;days per week
             p.section__summarybox-text Duration:
-              b &nbsp;{{ planMonth.duration }}&nbsp;
+              span.bold &nbsp;{{ planMonth.duration }}&nbsp;
               span(
                 v-if="currentPlan.duration === 1"
               ) month
@@ -193,6 +193,10 @@ export default {
 
 <style lang="scss" scoped>
 #subscribe {
+  .bold {
+    font-weight: 700;
+  }
+
   .bottomsheet {
     .bottomsheet__list {
       cursor: pointer;
