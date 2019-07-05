@@ -13,14 +13,14 @@ export default new Router({
     {
       path: '/subscribe',
       name: 'subscribe',
-      component: () => {
+      component: _ => {
         return import('@/views/Subscribe.vue')
       },
     },
     {
       path: '/checkout',
       name: 'checkout',
-      component: () => {
+      component: _ => {
         return import('@/views/Checkout.vue')
       },
     },

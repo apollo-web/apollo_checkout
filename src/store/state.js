@@ -19,7 +19,7 @@ export const state = {
         '45',
         '60',
         '120',
-      ]
+      ],
     },
     'days per week': {
       placeholder: '1',
@@ -31,7 +31,7 @@ export const state = {
         '5',
         '6',
         '7',
-      ]
+      ],
     },
   },
 

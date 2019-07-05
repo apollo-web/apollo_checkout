@@ -8,9 +8,11 @@ module.exports = {
       },
     },
   },
+
   devServer: {
     port: 3030,
   },
+
   pwa: {
     name: 'apollo_checkout',
     themeColor: '#844DFF',
@@ -18,4 +20,5 @@ module.exports = {
     appleMobileWebAppStatusBarStyle: 'black-translucent',
     appleMobileWebAppCapable: 'no',
   },
+
 }

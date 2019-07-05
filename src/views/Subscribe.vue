@@ -38,6 +38,7 @@
         )
           div.section__radiobox-box(
             @click="setDedicatePlan_RadioBtn(key, [value.duration, currentPlan['totalPrice']])"
+            :class="value.selected"
           )
             div.section__radiobox-left
               div.section__radiobox-left-left
@@ -282,8 +283,9 @@ export default {
         position: relative;
 
         .section__combobox-box {
-          display: inline-block;
+          height: $grid12x;
           position: absolute;
+          display: inline-block;
           width: calc(100% - #{$grid12x});
 
           p {
@@ -302,7 +304,7 @@ export default {
 
           i {
             float: right;
-            padding-top: $grid;
+            padding-top: $grid2x;
             @include font-size($grid6x);
           }
         }
@@ -313,6 +315,12 @@ export default {
 
         .section__radiobox-box {
           cursor: pointer;
+
+          &.radio_button_checked {
+            .section__radiobox-ratebox {
+              opacity: 1 !important;
+            }
+          }
 
           .section__radiobox-left {
             width: 65%;
@@ -349,6 +357,7 @@ export default {
               }
 
               .section__radiobox-ratebox {
+                opacity: 0.38;
                 color: $brand;
                 font-weight: 700;
                 display: inline-block;
@@ -356,6 +365,7 @@ export default {
                 background-color: #fff;
                 @include border-radius();
                 @include font-size($grid3x);
+                @include transition(opacity 0.25s ease);
               }
             }
           }

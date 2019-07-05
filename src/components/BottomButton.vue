@@ -4,7 +4,7 @@
   )
     div.bottomButton__wrapper(
       v-if="['subscribe'].includes($route.name)"
-      @click="goNext"
+      @click="toSubscribe"
     )
       p.bottomButton__label {{ btnLabel }}
     slot.bottomButton__wrapper(
@@ -23,30 +23,25 @@ export default {
   },
 
   methods: {
-    goNext() {
-      // subscribe
+    toSubscribe() {
+      // to subscribe
       if (this.$route.name == 'subscribe') {
-        this.$Progress.start(),
-        setTimeout(() => {
-          if(this.$route.name == 'subscribe') {
-            this.$router.push({
-              name: 'checkout',
-            })
-          }
-          this.$Progress.finish()
-        }, 100)
+        this.$router.push({
+          name: 'checkout',
+        })
       }
     },
   },
 
   mounted () {
     if (this.$route.name == 'subscribe') {
-      this.thisClass = 'btn__float'
+      return this.thisClass = 'btn__float'
     }
     else if (this.$route.name == 'checkout') {
-      this.thisClass = 'btn__fixed'
+      return this.thisClass = 'btn__fixed'
     }
   },
+
 }
 </script>
 
