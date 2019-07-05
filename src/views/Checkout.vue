@@ -97,7 +97,7 @@ export default {
     sendPaymentInfo() {
       this.$Progress.start()
 
-      if (! this.paymentInfo[0].value) {
+      if (! this.cardNumber.value) {
         this.$toasted.show('Please enter your card number', {
           theme: 'primary',
           position: 'bottom-center',
@@ -105,7 +105,7 @@ export default {
         })
         this.$Progress.finish()
       }
-      else if (! this.paymentInfo[1].value) {
+      else if (! this.expiryDate.value) {
         this.$toasted.show('Please write the rigth year and month', {
           theme: 'primary',
           position: 'bottom-center',
@@ -113,7 +113,7 @@ export default {
         })
         this.$Progress.finish()
       }
-      else if (! this.paymentInfo[2].value) {
+      else if (! this.cvcNumber.value) {
         this.$toasted.show('Please enter your Card Validation Code', {
           theme: 'primary',
           position: 'bottom-center',
