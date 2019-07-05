@@ -7,11 +7,11 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
-      path: '/subscribe',
-      redirect: '/',
+      path: '/',
+      redirect: '/subscribe',
     },
     {
-      path: '/',
+      path: '/subscribe',
       name: 'subscribe',
       component: () => {
         return import('@/views/Subscribe.vue')

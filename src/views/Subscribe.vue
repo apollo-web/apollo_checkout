@@ -168,7 +168,6 @@ export default {
     ]),
 
     closeBtn () {
-      window.open('about:blank', '_self').close()
       window.close()
       window.postMessage('close')
     },

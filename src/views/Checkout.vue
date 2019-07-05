@@ -5,7 +5,7 @@
     )
       div.header__left(
         slot="header__left"
-        @click="$router.push('/')"
+        @click="$router.push('/subscribe')"
       )
         i.material-icons arrow_back
 
@@ -95,7 +95,6 @@ export default {
 
   methods: {
     sendPaymentInfo() {
-      this.$Progress.start()
 
       if (! this.cardNumber.value) {
         this.$toasted.show('Please enter your card number', {
@@ -119,14 +118,16 @@ export default {
         })
       }
       else {
+      this.$Progress.start()
+
         this.$toasted.show('Your request is being processed...', {
           theme: 'primary',
           position: 'bottom-center',
           duration: 2500,
         })
-      }
 
       this.$Progress.finish()
+      }
     },
   },
 
