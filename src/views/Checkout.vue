@@ -103,7 +103,6 @@ export default {
           position: 'bottom-center',
           duration: 2500,
         })
-        this.$Progress.finish()
       }
       else if (! this.expiryDate.value) {
         this.$toasted.show('Please write the rigth year and month', {
@@ -111,7 +110,6 @@ export default {
           position: 'bottom-center',
           duration: 2500,
         })
-        this.$Progress.finish()
       }
       else if (! this.cvcNumber.value) {
         this.$toasted.show('Please enter your Card Validation Code', {
@@ -119,7 +117,6 @@ export default {
           position: 'bottom-center',
           duration: 2500,
         })
-        this.$Progress.finish()
       }
       else {
         this.$toasted.show('Your request is being processed...', {
@@ -128,6 +125,8 @@ export default {
           duration: 2500,
         })
       }
+
+      this.$Progress.finish()
     },
   },
 
