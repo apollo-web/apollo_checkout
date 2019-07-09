@@ -107,9 +107,11 @@ export default {
         bottom: 0;
         z-index: 28;
         width: 100vw;
+        overflow-y: scroll;
         padding: $grid4x 0;
         position: absolute;
         background-color: #fff;
+        max-height: 80vh !important;
         margin-bottom: -#{$grid48x};
         border-radius: $grid4x $grid4x 0 0;
         animation: 0.35s slide_up ease-in-out;
@@ -156,6 +158,7 @@ export default {
           .bottomsheet__header {
             height: $grid12x;
             position: relative;
+            background-color: #fff;
 
             .bottomsheet__header-left {
               color: #fff;
